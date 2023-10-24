@@ -143,6 +143,7 @@ class PelanganController extends Controller
             $pelangan->delete();
     
             return response()->json(['message' => 'Pelangan berhasil dihapus'], 200);
+            //menghapus semua data
         }
         
 }
