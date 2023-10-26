@@ -9,16 +9,16 @@ Route::get('/', function () {
 });
 
 // Route untuk menampilkan daftar produk
-Route::get('/pelangan', [PelanganController::class, 'index'])->name('pelangan.index');
+Route::get('/pelangan', [PelanganController::class, 'index'])->name('pelangan.index')->middleware('auth');
 
 // Route untuk menampilkan formulir tambah produk
-Route::get('/pelangan/create', [PelanganController::class, 'create'])->name('pelangan.create');
+Route::get('/pelangan/create', [PelanganController::class, 'create'])->name('pelangan.create')->middleware('auth');
 
 // Route untuk menyimpan produk baru
-Route::post('/pelangan', [PelanganController::class, 'store'])->name('pelangan.store');
+Route::post('/pelangan', [PelanganController::class, 'store'])->name('pelangan.store')->middleware('auth');
 
 // Route untuk menampilkan detail produk berdasarkan ID
-Route::get('/pelangan/{id}', [PelanganController::class, 'show'])->name('pelangan.show');
+Route::get('/pelangan/show/{id}', [PelanganController::class, 'show'])->name('pelangan.show');
 
 // Route untuk menampilkan formulir edit produk berdasarkan ID
 Route::get('/pelangan/{id}/edit', [PelanganController::class, 'edit'])->name('pelangan.edit');
@@ -30,16 +30,16 @@ Route::put('/pelangan/{id}', [PelanganController::class, 'update'])->name('pelan
 Route::delete('/pelangan/{id}', [PelanganController::class, 'destroy'])->name('pelangan.destroy');
 
 // Route untuk menampilkan daftar penjualan
-Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
+Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index')->middleware('auth');
 
 // Route untuk menampilkan formulir tambah penjualan
-Route::get('/penjualan/create', [PenjualanController::class, 'create'])->name('penjualan.create');
+Route::get('/penjualan/create', [PenjualanController::class, 'create'])->name('penjualan.create')->middleware('auth');
 
 // Route untuk menyimpan penjualan baru
-Route::post('/penjualan', [PenjualanController::class, 'store'])->name('penjualan.store');
+Route::post('/penjualan', [PenjualanController::class, 'store'])->name('penjualan.store')->middleware('auth');
 
 // Route untuk menampilkan detail produk berdasarkan ID
-Route::get('/penjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
+Route::get('/penjualan/show/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
 
 // Route untuk menampilkan formulir edit produk berdasarkan ID
 Route::get('/penjualan/{id}/edit', [PenjualanController::class, 'edit'])->name('penjualan.edit');
@@ -51,16 +51,16 @@ Route::put('/penjualan/{id}', [PenjualanController::class, 'update'])->name('pen
 Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
 
 // Route untuk menampilkan daftar barang
-Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
+Route::get('/barang', [BarangController::class, 'index'])->name('barang.index')->middleware('auth');
 
 // Route untuk menampilkan formulir tambah penjualan
-Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
+Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create')->middleware('auth');
 
 // Route untuk menyimpan penjualan baru
-Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
+Route::post('/barang', [BarangController::class, 'store'])->name('barang.store')->middleware('auth');
 
 // Route untuk menampilkan detail produk berdasarkan ID
-Route::get('/barang/{id}', [BarangController::class, 'show'])->name('barang.show');
+Route::get('/barang/show/{id}', [BarangController::class, 'show'])->name('barang.show');
 
 // Route untuk menampilkan formulir edit produk berdasarkan ID
 Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
@@ -70,3 +70,13 @@ Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang.up
 
 // Route untuk menghapus produk berdasarkan ID
 Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//membuat searching pada web
+Route::get('/pelangan/search', [PelanganController::class, 'search'])->name('pelangan.search');
+
+Route::get('/penjualan/search', [PenjualanController::class, 'search'])->name('penjualan.search');
+
+Route::get('/barang/search', [BarangController::class, 'search'])->name('barang.search');
+

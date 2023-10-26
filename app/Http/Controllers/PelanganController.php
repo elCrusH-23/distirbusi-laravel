@@ -10,10 +10,16 @@ class PelanganController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pelangan =Pelangan::all();
-        return view('pelangan.index',compact('pelangan'));
+        $query = $request->input('query');
+        $order = $request->input('order', 'nama');
+        $sort = $request->input('sort',"asc"); // Nilai default adalah 'asc' jika tidak ada parameter sort atau nilai sort tidak valid
+
+        $pelangans = Pelangan::where($order, 'like', '%'.$query.'%')
+                        ->orderBy($order, $sort)
+                        ->paginate(3);
+        return view('pelangan.index',compact('pelangans'));
     }
 
     /**
@@ -54,6 +60,7 @@ class PelanganController extends Controller
     public function edit($id)
     {
         $pelangan=Pelangan::find($id);
+        //return dd($pelangan);
         return view('pelangan.edit',compact('pelangan'));
     }
 
@@ -145,5 +152,12 @@ class PelanganController extends Controller
             return response()->json(['message' => 'Pelangan berhasil dihapus'], 200);
             //menghapus semua data
         }
-        
+        public function search(Request $request)
+        {
+        $query = $request->input('query'); // Mendapatkan kata kunci pencarian dari input form
+
+        $pelangans = Pelangan::where('nama', 'like', '%'.$query.'%')->paginate(3); // Menampilkan 10 produk per halaman
+
+        return view('pelangan.index', compact('pelangans'));
+        }        
 }

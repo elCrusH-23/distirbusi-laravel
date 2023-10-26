@@ -9,5 +9,5 @@ class Penjualan extends Model
 {
     use HasFactory;
     protected $table = 'penjualan'; // Menyatakan nama tabel yang terkait dengan model ini
-    protected $fillable = ['jumlah_barang', 'harag_satuan'];
+    protected $fillable = ['jumlah_barang', 'harga_satuan'];
 }

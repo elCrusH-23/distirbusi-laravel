@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
             <label for="harga_satuan">Harga Satuan:</label>
-            <input type="number" class="form-control" id="harga-satuan" name="harga_satuan" value="{{ $penjualan->harga_barang }}" required>
+            <input type="number" class="form-control" id="harga_satuan" name="harga_satuan" value="{{ $penjualan->harga_satuan }}" required>
         </div>
         <br>
         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>

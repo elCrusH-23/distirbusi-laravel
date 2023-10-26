@@ -7,7 +7,7 @@
         @method('PUT')
         <div class="form-group">
             <label for="nama">Nama Pelangan:</label>
-            <input type="text" class="form-control" id="nama" name="nama" value="{{ $pelangan->name }}" required>
+            <input type="text" class="form-control" id="nama" name="nama" value="{{ $pelangan->nama }}" required>
         </div>
         <div class="form-group">
             <label for="kontak">kontak:</label>

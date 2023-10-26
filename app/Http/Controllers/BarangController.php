@@ -10,10 +10,16 @@ class BarangController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $barang =Barang::all();
-        return view('barang.index',compact('barang'));
+        $query = $request->input('query');
+        $order = $request->input('order', 'nama_barang');
+        $sort = $request->input('sort',"asc"); // Nilai default adalah 'asc' jika tidak ada parameter sort atau nilai sort tidak valid
+
+        $barangs = Barang::where($order, 'like', '%'.$query.'%')
+                        ->orderBy($order, $sort)
+                        ->paginate(3);
+        return view('barang.index',compact('barangs'));
     }
 
     /**
@@ -35,7 +41,7 @@ class BarangController extends Controller
             'stock'=>'required|integer',
         ]);
 
-        $barang=Barang::find($id);
+        Barang::create($request->all());
         return redirect()->route('barang.index')->with('succes','Barang sudah di buat');
     }
 
@@ -53,7 +59,7 @@ class BarangController extends Controller
      */
     public function edit($id)
     {
-        $barang=Barang;;find($id);
+        $barang=Barang::find($id);
         return view('barang.edit',compact('barang'));
     }
 
@@ -144,4 +150,13 @@ class BarangController extends Controller
     
             return response()->json(['message' => 'barang berhasil dihapus'], 200);
         }
+        public function search(Request $request)
+        {
+        $query = $request->input('query'); // Mendapatkan kata kunci pencarian dari input form
+
+        $barangs = Barang::where('nama_barang', 'like', '%'.$query.'%')->paginate(3); // Menampilkan 10 produk per halaman
+
+        return view('barang.index', compact('barangs'));
+        }
+        
 }

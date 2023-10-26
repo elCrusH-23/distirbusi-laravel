@@ -2,17 +2,47 @@
 
 @section('content')
     <h2>Daftar Pelangan</h2>
+        <form action="{{ route('pelangan.search') }}" method="GET">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Cari pelangan..." name="query" value="{{ request('query') }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Cari</button>
+                        <a href="{{ route('pelangan.index') }}" class="btn btn-outline-secondary">Clear</a>
+                    </div>
+            </div>
+        </form>
     <table class="table">
         <thead>
             <tr>
-                <th>Nama</th>
-                <th>Kontak</th>
-                <th>Asal</th>
+                <th>Nama
+                    <a href="{{ route('pelangan.index', ['sort' => 'asc','order' => 'nama']) }}">
+                        <i class="fas fa-arrow-up"></i>
+                    </a>
+                    <a href="{{ route('pelangan.index', ['sort' => 'desc','order' => 'nama']) }}">
+                        <i class="fas fa-arrow-down"></i>
+                    </a>
+                </th>
+                <th>Kontak
+                    <a href="{{ route('pelangan.index', ['sort' => 'asc','order' => 'kontak']) }}">
+                        <i class="fas fa-arrow-up"></i>
+                    </a>
+                    <a href="{{ route('pelangan.index', ['sort' => 'desc','order' => 'kontak']) }}">
+                        <i class="fas fa-arrow-down"></i>
+                    </a>
+                </th>
+                <th>Asal
+                    <a href="{{ route('pelangan.index', ['sort' => 'asc','order' => 'asal']) }}">
+                        <i class="fas fa-arrow-up"></i>
+                    </a>
+                    <a href="{{ route('pelangan.index', ['sort' => 'desc','order' => 'asal']) }}">
+                        <i class="fas fa-arrow-down"></i>
+                    </a>
+                </th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($pelangan as $pelangan)
+            @foreach ($pelangans as $pelangan)
                 <tr>
                     <td>{{ $pelangan->nama }}</td>
                     <td>{{ $pelangan->kontak }}</td>
@@ -30,5 +60,6 @@
             @endforeach
         </tbody>
     </table>
+    {{ $pelangans -> links() }}
     <a href="{{ route('pelangan.create') }}" class="btn btn-success">Tambah Baru</a>
 @endsection
